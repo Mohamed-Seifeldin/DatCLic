@@ -1,0 +1,67 @@
+namespace org.malatest.datclic
+
+abstract participant MalatestParticipant identified by ParticipantID {
+  o String ParticipantID
+  o ContactInfo Contact
+}
+
+participant Licensor extends MalatestParticipant{
+  o String Role default = "Agent"
+  o Boolean IsOwner default = true
+}
+
+participant Licensee extends MalatestParticipant{
+  o String Affiliation
+}
+
+asset LicenseAgreement identified by LicenseAgreementID {
+  o String LicenseAgreementID  //it has to be a combination of a number (index) and date (start date)
+  o LicenseType Category
+  o String LicenseHashDigest
+  o String DataSetName
+  o String DataSetContext  optional // e.g. Medical Data
+  o Integer ValidityPeriod
+  o Double Cost
+  --> Licensor FirstParty
+  --> Licensee SecondParty
+}
+
+asset Infringements identified by LicenseAgreementID {
+  o String LicenseAgreementID
+  o String InfringementDetails optional
+  o LicenseType Category
+  o String LicenseHashDigest
+  --> Licensor FirstParty
+  --> Licensee SecondParty
+}
+
+transaction AgreementStruck {
+  o DateTime StrikeDate
+  o String AgreementNumber
+  o LicenseType Category
+  o String DataSetName
+  o String LicenseHashDigest
+  o Integer ValidityPeriod
+  o Double Cost
+  o String FirstPartyID
+  o String SecondPartyID
+}
+
+transaction AgreementInfringed {
+  o String LicenseAgreementID
+  o String InfringementDetails optional
+}
+
+concept ContactInfo {
+  o String FName
+  o String LName
+  o String Email
+}
+
+enum LicenseType {
+  o PUBLIC
+  o CONFIDENTIAL
+  o CLASSIFIED
+  o SECRET
+  o TOP_SECRET
+}

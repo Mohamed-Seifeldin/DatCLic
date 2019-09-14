@@ -1,0 +1,11 @@
+query GetAllStruckAgreements {
+  description: "Get all the information pertaining to struck license agreements"
+  statement: 
+    SELECT org.malatest.datclic.LicenseAgreement
+}
+
+query GetInfringements {
+  description: "Retrieve the Infringements that have happened"
+  statement: 
+    SELECT org.malatest.datclic.Infringements
+}
