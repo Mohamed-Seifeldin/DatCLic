@@ -1,2 +1,2 @@
 # DatCLic
-Data classification and License agreement monitoring by mohamed.
+Data classification and License agreement monitoring by applying machine learning and Blockchain.
